@@ -514,7 +514,7 @@ typedef void(^KLineTipModelAction)(TipModel* tipModel);
     //数组中开始的index
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     // 可视view显示的个数
-    NSInteger countInView = ceil(screenWidth / (self.candleWidth + space)) + 1;
+    NSInteger countInView = ceil(SCREEN_WIDTH / (self.candleWidth + space)) + 1;
     NSInteger startIndex = MAX(0, self.contentOffsetX / (self.candleWidth + space));
     //可视数组中结束的index
     NSInteger endIndex = MIN(startIndex + countInView, self.visibleKLineData.count);
@@ -846,8 +846,8 @@ typedef void(^KLineTipModelAction)(TipModel* tipModel);
     self.view.backgroundColor = UIColor.whiteColor;
     
     CGFloat chartHeight = viewHeight + 10 + volumeHeight;
-    CGFloat tipViewHeight = self.view.bounds.size.height - statusHeight - bottomSafeHeight -chartHeight;
-    self.tipView = [[TipView alloc] initWithFrame:CGRectMake(0, statusHeight, screenWidth, tipViewHeight)];
+    CGFloat tipViewHeight = self.view.bounds.size.height - SAFE_AREA_TOP_HEIGHT - SAFE_AREA_BOTTOM -chartHeight;
+    self.tipView = [[TipView alloc] initWithFrame:CGRectMake(0, SAFE_AREA_TOP_HEIGHT, SCREEN_WIDTH, tipViewHeight)];
     self.tipView.addTo(self.view);
 
     self.allKLineData = [self loadAllData];
@@ -873,7 +873,7 @@ typedef void(^KLineTipModelAction)(TipModel* tipModel);
 - (void)setupChartView:(CGFloat)chartHeight {
     //计算临时显示view的总长度
     CGFloat width = self.loadedKLineData.count * (8 + space);
-    KLineChartView *chartView = [[KLineChartView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - chartHeight - bottomSafeHeight, width, chartHeight)];
+    KLineChartView *chartView = [[KLineChartView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - chartHeight - SAFE_AREA_BOTTOM, width, chartHeight)];
     chartView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.2];
     chartView.visibleKLineData = self.loadedKLineData;
 
@@ -921,7 +921,7 @@ typedef void(^KLineTipModelAction)(TipModel* tipModel);
     self.chartView.contentOffsetX = scrollView.contentOffset.x;
     
     CGFloat candleFullWidth = self.chartView.candleWidth + space;
-    CGFloat maxOffsetX = self.loadedKLineData.count * candleFullWidth - screenWidth;
+    CGFloat maxOffsetX = self.loadedKLineData.count * candleFullWidth - SCREEN_WIDTH;
 
     // 向右滑到底部-把之前左边就的数据删除（数组最多存900个模型）
     if (scrollView.contentOffset.x >= maxOffsetX - 50) {
