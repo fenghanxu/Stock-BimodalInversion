@@ -238,24 +238,24 @@ typedef void(^KLineScaleAction)(BOOL clickState);
 typedef void(^KLineTipModelAction)(TipModel* tipModel);
 
 @interface KLineChartView : UIView
-//可视view的数据，限制最多900条蜡烛图(总的数据当中的一部分)
+//可视view的数据，限制最多900条蜡烛图(总的数据当中的一部分)(左边300根,中间显示300根,右边300根)
 @property (nonatomic, strong) NSArray<KLineModel *> *visibleKLineData;
 //可视图x的偏移值，(可视图相对总图的x显示位置)
 @property (nonatomic, assign) CGFloat contentOffsetX;
 //蜡烛图的宽度
 @property (nonatomic, assign) CGFloat candleWidth;
-//长按手势:是否显示虚线
+//长按手势:是否显示十字虚线
 @property (nonatomic, assign) BOOL showCrossLine;
 //长按手势相关: 十字线的point点
 @property (nonatomic, assign) CGPoint crossPoint;
-//长按手势相关
+//长按手势
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
 //捏合手势
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchGesture;
 //用户长按传递出去控制器显示tipview
-@property (nonatomic, copy) KLineScaleAction scaleCallback;
+@property (nonatomic,   copy) KLineScaleAction scaleCallback;
 //用户长按返回计算好的TipModel
-@property (nonatomic, copy) KLineTipModelAction tipModelCallback;
+@property (nonatomic,   copy) KLineTipModelAction tipModelCallback;
 @end
 
 @implementation KLineChartView
